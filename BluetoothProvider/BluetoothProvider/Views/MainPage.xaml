@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BluetoothProvider.Views.MainPage"
+             Title="BluetoothExplorer">
+
+    <StackLayout>
+        <Button Text="Refresh Devices" Command="{Binding RefreshBlueTooothDevicesCommand}"></Button>
+        <!-- Place new controls here -->
+        <Grid>
+            <ListView HorizontalOptions="Fill" VerticalOptions="Fill" ItemsSource="{Binding Devices}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}" Detail="{Binding MacAddress}"></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Triggers>
+                    <DataTrigger TargetType="ListView" Binding="{Binding IsRunning}" Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </ListView.Triggers>
+            </ListView>
+            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="{Binding IsRunning}}" ></ActivityIndicator>
+        </Grid>
+
+    </StackLayout>
+</ContentPage>
