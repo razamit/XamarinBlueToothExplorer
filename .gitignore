@@ -1888,3 +1888,4 @@ BluetoothProvider/BluetoothProvider/obj/BluetoothProvider.csproj.nuget.g.targets
 BluetoothProvider/BluetoothProvider/obj/BluetoothProvider.csproj.nuget.g.props
 BluetoothProvider/BluetoothProvider/obj/BluetoothProvider.csproj.nuget.cache
 *.user
+BluetoothProvider/BluetoothProvider.Android/BluetoothProvider.Android.csproj.user
