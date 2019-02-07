@@ -79,7 +79,7 @@ namespace BluetoothProvider.Droid
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IBlueToothService,BlueToothService_Android>();
+            containerRegistry.Register<IBlueToothService,BlueToothService_Android>();
         }
     }
 }

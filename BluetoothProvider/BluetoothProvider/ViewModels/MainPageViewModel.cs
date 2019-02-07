@@ -1,9 +1,11 @@
-﻿using BluetoothProvider.Interfaces;
+﻿using BluetoothProvider.Common;
+using BluetoothProvider.Interfaces;
 using BluetoothProvider.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
+using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -33,11 +35,13 @@ namespace BluetoothProvider.ViewModels
         {
             RefreshBlueTooothDevicesCommand = new DelegateCommand(RefreshBlueToothExecuted, RefreshBlueToothCanExecute);
             _blueToothService = btService;
-            _blueToothService.DeviceAdded += BlueToothServiceDeviceAdded;
-            _blueToothService.ScanFinished += () => ToggleRunningState();
+            MessagingCenter.Subscribe<IBlueToothService,BluetoothDevice>(this, MessageTypes.DeviceFound.ToString(), BlueToothServiceDeviceAdded);
+            MessagingCenter.Subscribe<IBlueToothService>(this, MessageTypes.ScanFinished.ToString(), (service)=> ToggleRunningState());
+            //_blueToothService.DeviceAdded += BlueToothServiceDeviceAdded;
+            //_blueToothService.ScanFinished += () => ToggleRunningState();
         }
 
-        private void BlueToothServiceDeviceAdded(BluetoothDevice obj)
+        private void BlueToothServiceDeviceAdded(IBlueToothService service, BluetoothDevice obj)
         {
             if(!Devices.Any(d=>d.MacAddress == obj.MacAddress))
             {

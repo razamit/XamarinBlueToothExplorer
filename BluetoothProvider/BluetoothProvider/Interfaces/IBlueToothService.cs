@@ -11,8 +11,8 @@ namespace BluetoothProvider.Interfaces
         bool IsAdapterEnabled { get; }
         void StartScan();
         void AddDevice(BluetoothDevice device);
-        event Action<BluetoothDevice> DeviceAdded;
-        event Action ScanFinished;
+        //event Action<BluetoothDevice> DeviceAdded;
+        //event Action ScanFinished;
         void RaiseScanFinishedEvent();
     }
 }

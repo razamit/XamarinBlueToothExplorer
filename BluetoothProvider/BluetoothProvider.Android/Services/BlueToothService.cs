@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Android;
 using Android.Bluetooth;
 using Android.Support.V4.App;
+using BluetoothProvider.Common;
 using BluetoothProvider.Droid.Services;
 using BluetoothProvider.Interfaces;
 using BluetoothProvider.Models;
@@ -14,9 +15,6 @@ namespace BluetoothProvider.Droid.Services
 {
     public class BlueToothService_Android : IBlueToothService
     {        
-        List<LocalBluetoothDevice> devices = new List<LocalBluetoothDevice>();
-        public event Action<LocalBluetoothDevice> DeviceAdded = delegate { };
-        public event Action ScanFinished = delegate { };
         private Guid id = Guid.NewGuid();
 
         public void StartScan()
@@ -31,13 +29,12 @@ namespace BluetoothProvider.Droid.Services
 
         public void AddDevice(LocalBluetoothDevice device)
         {
-            devices.Add(device);
-            DeviceAdded(device);
+            MessagingCenter.Send<IBlueToothService, LocalBluetoothDevice>(this, MessageTypes.DeviceFound.ToString(), device);
         }
 
         public void RaiseScanFinishedEvent()
         {
-            ScanFinished();
+            MessagingCenter.Send<IBlueToothService>(this, MessageTypes.ScanFinished.ToString());
         }
 
         public bool IsAdapterEnabled
